@@ -1,3 +1,5 @@
+package leetcode
+
 import leetcode.util.ListNode
 
 fun main() {
