@@ -1,7 +1,11 @@
 package leetcode
 
 
-fun reverseString(s: CharArray): Unit {
+/**
+ * 一、双指针
+ * 二、字符串
+ */
+fun reverseString(s: CharArray) {
     var pre = 0; var last = s.size - 1
     var cache: Char?
     while (pre < last) {

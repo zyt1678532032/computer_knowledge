@@ -2,6 +2,10 @@ package leetcode
 
 import leetcode.util.ListNode
 
+/**
+ * 一、链表
+ */
+
 fun main() {
     val data = listOf(1, 2, 3, 4)
     val head = createListNode(data)
