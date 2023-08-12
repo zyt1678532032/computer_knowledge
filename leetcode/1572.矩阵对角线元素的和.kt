@@ -9,10 +9,7 @@ package leetcode
 fun diagonalSum(mat: Array<IntArray>): Int {
     var sum = 0
     for (i in mat.indices) {
-        sum += mat[i][i]
-    }
-    for (i in mat.size - 1 downTo 0) {
-        sum += mat[i][mat.size - i - 1]
+        sum += mat[i][i] + mat[i][mat.size - i - 1]
     }
     if (mat.size % 2 == 0){
         return sum
