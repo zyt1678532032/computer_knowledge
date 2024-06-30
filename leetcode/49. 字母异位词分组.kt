@@ -1,5 +1,7 @@
 package leetcode
 
+import java.util.Arrays
+
 
 /**
  * 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
@@ -7,9 +9,6 @@ package leetcode
  */
 
 fun main() {
-    println(isEquals("eat", "aet"))
-    println(isEquals("eat", "ate"))
-    println(isEquals("ddddddddddg", "dgggggggggg"))
     val strs = arrayOf("eat", "tea", "tan", "ate", "nat", "bat")
     val strs2 = arrayOf("eat", "tea")
     val strs3 = arrayOf("ddddddddddg", "dgggggggggg")
@@ -19,57 +18,16 @@ fun main() {
 }
 
 fun groupAnagrams(strs: Array<String>): List<List<String>> {
-    if (strs.isEmpty()) return listOf(listOf())
+    val dict = mutableMapOf<String, MutableList<String>>()
 
-    val result = mutableListOf<MutableList<String>>()
-    strs.forEach out@{ str1 ->
-        var isContains = false
-        result.forEach inner@{ strings ->
-            val str2 = strings[0]
-            if (isEquals(str1, str2)) {
-                isContains = true
-                strings += str1
-                return@inner
-            }
-        }
-        if (!isContains) {
-            result += mutableListOf(str1)
+    for (str in strs) {
+        val charArray = str.toCharArray()
+        Arrays.sort(charArray)
+        val key = String(charArray)
+        dict[key] = dict[key] ?: mutableListOf()
+        dict[key]?.let {
+            it += str
         }
     }
-
-    return result
-}
-
-fun isEquals(str1: String, str2: String): Boolean {
-    if (str1.length != str2.length) return false
-    val map1 = mutableMapOf<Char, Int>()
-    val map2 = mutableMapOf<Char, Int>()
-    str1.forEach {
-        if (!map1.containsKey(it)) {
-            map1[it] = 1
-            return@forEach
-        }
-        map1[it]?.let { value ->
-            map1[it] = value + 1
-        }
-    }
-    str2.forEach {
-        if (!map2.containsKey(it)) {
-            map2[it] = 1
-            return@forEach
-        }
-        map2[it]?.let { value ->
-            map2[it] = value + 1
-        }
-    }
-    for (entity in map1.entries) {
-        val (key, value) = entity
-        if (map2[key] == null) {
-            return false
-        }
-        if (map2[key] != value) {
-            return false
-        }
-    }
-    return true
+    return dict.values.toList()
 }
