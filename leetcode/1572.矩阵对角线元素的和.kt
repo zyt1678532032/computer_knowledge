@@ -11,7 +11,7 @@ fun diagonalSum(mat: Array<IntArray>): Int {
     for (i in mat.indices) {
         sum += mat[i][i] + mat[i][mat.size - i - 1]
     }
-    if (mat.size % 2 == 0){
+    if (mat.size % 2 == 0) {
         return sum
     }
     return sum - mat[mat.size / 2][mat.size / 2]
@@ -24,4 +24,15 @@ fun main() {
         intArrayOf(1, 1, 1)
     )
     println(diagonalSum(ints))
+    highFunction {
+        return@highFunction
+    }
+}
+
+
+// crossinline 所修饰的lambda表达式不允许非局部返回（non-local return）
+inline fun highFunction(crossinline block: () -> Unit) {
+    println("highFunction --> start")
+    block.invoke()
+    println("highFunction --> end")
 }
